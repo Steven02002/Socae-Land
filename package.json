@@ -32,5 +32,8 @@
     "sass": "^1.41.1",
     "style-loader": "^3.3.2",
     "terser": "^5.14.2"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
