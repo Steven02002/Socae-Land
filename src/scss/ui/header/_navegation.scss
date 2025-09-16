@@ -1,0 +1,16 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.navegation {
+  &__link {
+    color: v.$blanco;
+    font-weight: bold;
+
+    &--actual,
+    &:hover {
+      color: v.$primary;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.agend {
+  padding: 2rem 0;
+  @include m.contenedor;
+  &__description {
+    text-align: center;
+  }
+  &__heading {
+    @include m.desktop {
+      font-size: clamp(2rem, -0.8rem + 8vw, 5rem);
+    }
+  }
+}
+
+.events {
+  $modifier: &;
+
+  &__heading {
+    color: v.$primary;
+    margin: 5rem 0;
+    text-align: left;
+    font-size: clamp(2rem, -0.8rem + 8vw, 4rem);
+  }
+
+  &__date {
+    color: v.$gris;
+    margin: 3rem 0 1rem 0;
+  }
+
+  &--workshops {
+    #{$modifier}__heading {
+      color: v.$gris;
+    }
+
+    .event__information {
+      background-color: v.$gris;
+      &:hover {
+        background-color: darken(v.$gris, 10%);
+      }
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: rgba(v.$blanco, 0.5);
+  }
+}
+
+.event {
+  &__hour {
+    font-weight: v.$bold;
+  }
+
+  &__information {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: v.$primary;
+    color: v.$blanco;
+    transition: 300ms background-color ease;
+    &:hover {
+      background-color: darken(v.$primary, 10%);
+    }
+  }
+
+  &__name {
+    font-size: 2rem;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__introduction {
+    font-size: 1.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__day {
+    font-size: 1.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__location {
+    font-size: 1.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__author-info {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__image-author {
+    width: 5rem;
+    background-color: v.$blanco;
+    border-radius: 50%;
+  }
+
+  &__author-name {
+    font-weight: v.$bold;
+  }
+}

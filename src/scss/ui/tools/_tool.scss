@@ -1,0 +1,181 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+
+.positionTool {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.positionImage {
+  display: inline-block;
+}
+:root {
+  /* Colors */
+  --brand-color: hsl(46, 100%, 50%);
+}
+
+/* component COMPONENT */
+
+.component {
+  margin-bottom: 4rem;
+  display: inline-grid;
+  place-items: center;
+  width: 80vw;
+  text-align: -webkit-center;
+  max-width: 45rem;
+  height: 55rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  @include m.desktop{
+    margin: 4rem;
+  }
+}
+
+.component__description {
+  color: white;
+}
+
+.component__title {
+  color: white;
+}
+
+.component > * {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.component__background {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+}
+
+.component__content {
+  --flow-space: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
+  height: 65%;
+  width: 100%;
+  padding: 6% 1.25rem 1.875rem;
+  background: linear-gradient(
+    180deg,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.3) 10%,
+    hsl(0, 0%, 0%) 100%
+  );
+}
+
+.component__content--container {
+  --flow-space: 1.25rem;
+}
+
+.component__title {
+  position: relative;
+  width: fit-content;
+  width: -moz-fit-content; /* Prefijo necesario para Firefox  */
+}
+
+.component__title::after {
+  content: "";
+  position: absolute;
+  height: 0.3125rem;
+  width: calc(100% + 1.25rem);
+  bottom: calc((1.25rem - 0.5rem) * -1);
+  left: -1.25rem;
+  background-color: v.$primary;
+}
+
+.component__button {
+  padding: 0.75em 1.6em;
+  width: auto;
+  //width: -moz-fit-content; /* Prefijo necesario para Firefox  */
+  font-variant: small-caps;
+  font-weight: bold;
+  border-radius: 0.45em;
+  border: none;
+  background-color: v.$primary;
+  font-family: var(--font-title);
+  font-size: 3rem;
+  color: v.$blanco;
+  cursor: pointer;
+}
+
+a {
+  color: white;
+}
+.component__button:focus {
+  outline: 2px solid black;
+  outline-offset: -5px;
+}
+
+@media (any-hover: hover) and (any-pointer: fine) {
+  .component__content {
+    transform: translateY(62%);
+    transition: transform 500ms ease-out;
+    transition-delay: 500ms;
+  }
+
+  .component__title::after {
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 1000ms ease-in, transform 500ms ease-out;
+    transition-delay: 500ms;
+    transform-origin: right;
+  }
+
+  .component__background {
+    transition: transform 500ms ease-in;
+  }
+
+  .component__content--container > :not(.component__title),
+  .component__button {
+    opacity: 0;
+    transition: transform 500ms ease-out, opacity 500ms ease-out;
+  }
+
+  .component:hover,
+  .component:focus-within {
+    transform: scale(1.05);
+    transition: transform 500ms ease-in;
+  }
+
+  .component:hover .component__content,
+  .component:focus-within .component__content {
+    transform: translateY(0);
+    transition: transform 500ms ease-in;
+  }
+
+  .component:focus-within .component__content {
+    transition-duration: 0ms;
+  }
+
+  .component:hover .component__background,
+  .component:focus-within .component__background {
+    transform: scale(1.3);
+  }
+
+  .component:hover .component__content--container > :not(.component__title),
+  .component:hover .component__button,
+  .component:focus-within
+    .component__content--container
+    > :not(.component__title),
+  .component:focus-within .component__button {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+    transition-delay: 1000ms;
+  }
+
+  .component:hover .component__title::after,
+  .component:focus-within .component__title::after {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: opacity 500ms ease-in, transform 500ms ease-in;
+    transition-delay: 500ms;
+  }
+}

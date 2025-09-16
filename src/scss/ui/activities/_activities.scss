@@ -1,0 +1,40 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+.swiper-container {
+  width: auto;
+  height: auto;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sizePhone {
+  @include m.desktop {
+    margin-left: auto;
+  }
+
+  @include m.telefono {
+    margin-left: 27%;
+  }
+
+  @include m.tablet {
+    margin-left: auto;
+  }
+}
+
+.cards {
+    background-color: v.$primary;
+    color: v.$blanco;
+    text-align: center;
+    border-radius: 5%;
+}
+
+.imageStyle {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  padding-top: 4px;
+  width: 98%;
+  height: 350px;
+  object-fit: inherit;
+}

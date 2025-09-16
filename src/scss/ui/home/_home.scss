@@ -1,0 +1,49 @@
+@use "base/mixins" as m;
+
+.descriptionhomebg {
+    background-color: #850c41;
+    margin-top: 1rem;
+}
+
+.descriptionhome {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    color: white;
+}
+
+.decriptioncontent{
+    width: 100%;
+    @include m.desktop {
+        width: 60%;
+    }
+}
+
+.descriptionsection{
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.descriptiontitle{
+    font-size: 4rem;
+    @include m.desktop {
+        font-size: 6rem;
+    }
+}
+
+.descriptiontext{
+    font-size: 2rem;
+    @include m.desktop {
+        font-size: 2rem;
+    }
+}
+
+.descriptionhome .descriptioncontent {
+    flex: 1 1 42rem;
+}
+
+.descriptionhome .descriptionimage {
+    flex: 1 1 42rem;
+}

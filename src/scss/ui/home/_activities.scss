@@ -1,0 +1,17 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.activitystyle {
+  &__images {
+    border-radius: 10%;
+  }
+
+  &__information {
+    text-align: center;
+    text-justify: auto;
+    padding-bottom: 1.5rem;
+    border-radius: 10%;
+    color: v.$blanco;
+    background: v.$primary;
+  }
+}

@@ -1,0 +1,43 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.newstyle {
+    &__title {
+        font-weight: v.$bold;
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    &__images {
+        border-radius: 10%;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    &__information {
+        text-align: center;
+        text-justify: auto;
+        padding: 2rem;
+        border-radius: 1rem;
+        color: v.$negro;
+        transition: 300ms background-color ease;
+        &:hover {
+            background-color: darken(v.$gris-claro, 1%);
+        }
+    }
+
+    &__introduction {
+        font-size: 2rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__author-info {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+}
