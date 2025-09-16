@@ -17,81 +17,81 @@ const sourcemaps = require('gulp-sourcemaps');
 // Javascript
 const terser = require('gulp-terser-js');
 const concat = require('gulp-concat');
-const rename = require('gulp-rename')
+const rename = require('gulp-rename');
 
 // Webpack
-const Webpack = require('webpack-stream')
+const Webpack = require('webpack-stream');
 
 const paths = {
-    scss: 'src/scss/**/*.scss',
-    js: 'src/js/**/*.js',
-    imagenes: 'src/img/**/*'
+    scss: 'src/scss/**/*.scss',
+    js: 'src/js/**/*.js',
+    imagenes: 'src/img/**/*'
 }
+
 function css() {
-    return src(paths.scss)
-        .pipe( sourcemaps.init())
-        .pipe( sass({outputStyle: 'expanded'}))
-        // .pipe( postcss([autoprefixer(), cssnano()]))
-        .pipe( sourcemaps.write('.'))
-        .pipe(  dest('public/build/css') );
+    return src(paths.scss)
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest('public/build/css'));
 }
+
 function javascript() {
-    return src(paths.js)
-      .pipe( Webpack({
-        module: {
-            rules: [
-                {
-                    test: /\.css$/i,
-                    use: ['style-loader', 'css-loader']
-                }
-            ]
-        },
-        mode: 'production',
-        entry: './src/js/app.js'
-      }))
-      .pipe(sourcemaps.init())
-      //.pipe(concat('bundle.js')) 
-      .pipe(terser())
-      .pipe(sourcemaps.write('.'))
-      .pipe(rename({ suffix: '.min' }))
-      .pipe(dest('./public/build/js'))
+    return src(paths.js)
+      .pipe(Webpack({
+          module: {
+              rules: [
+                  {
+                      test: /\.css$/i,
+                      use: ['style-loader', 'css-loader']
+                  }
+              ]
+          },
+          mode: 'production',
+          entry: './src/js/app.js'
+      }))
+      .pipe(sourcemaps.init())
+      .pipe(terser())
+      .pipe(sourcemaps.write('.'))
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(dest('./public/build/js'));
 }
 
 /* --- TAREAS DE IMAGEN DESACTIVADAS ---
 function imagenes() {
-    return src(paths.imagenes)
-        .pipe( cache(imagemin({ optimizationLevel: 3})))
-        .pipe( dest('public/build/img'))
+    return src(paths.imagenes)
+        .pipe(cache(imagemin({ optimizationLevel: 3})))
+        .pipe(dest('public/build/img'));
 }
 
-function versionWebp( done ) {
-    const opciones = {
-        quality: 50
-    };
-    src('src/img/**/*.{png,jpg}')
-        .pipe( webp(opciones) )
-        .pipe( dest('public/build/img') )
-    done();
+function versionWebp(done) {
+    const opciones = {
+        quality: 50
+    };
+    src('src/img/**/*.{png,jpg}')
+        .pipe(webp(opciones))
+        .pipe(dest('public/build/img'));
+    done();
 }
 
-function versionAvif( done ) {
-    const opciones = {
-        quality: 50
-    };
-    src('src/img/**/*.{png,jpg}')
-        .pipe( avif(opciones) )
-        .pipe( dest('public/build/img') )
-    done();
+function versionAvif(done) {
+    const opciones = {
+        quality: 50
+    };
+    src('src/img/**/*.{png,jpg}')
+        .pipe(avif(opciones))
+        .pipe(dest('public/build/img'));
+    done();
 }
 */
 
 function dev(done) {
-    watch( paths.scss, css );
-    watch( paths.js, javascript );
-    // watch( paths.imagenes, imagenes) // Desactivado
-    // watch( paths.imagenes, versionWebp) // Desactivado
-    // watch( paths.imagenes, versionAvif) // Desactivado
-    done()
+    watch(paths.scss, css);
+    watch(paths.js, javascript);
+    // watch(paths.imagenes, imagenes); // Desactivado
+    // watch(paths.imagenes, versionWebp); // Desactivado
+    // watch(paths.imagenes, versionAvif); // Desactivado
+    done();
 }
 
 exports.css = css;
