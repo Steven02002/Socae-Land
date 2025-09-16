@@ -8,62 +8,96 @@ const cssnano = require('cssnano');
 const postcss = require('gulp-postcss');
 const sourcemaps = require('gulp-sourcemaps');
 
+// Imagenes (DESACTIVADAS)
+// const cache = require('gulp-cache');
+// const imagemin = require('gulp-imagemin');
+// const webp = require('gulp-webp');
+// const avif = require('gulp-avif');
+
 // Javascript
-const terser = require('gulp-terser');
-const rename = require('gulp-rename');
-const webpack = require('webpack-stream');
+const terser = require('gulp-terser-js');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename')
 
-// Rutas
+// Webpack
+const Webpack = require('webpack-stream')
+
 const paths = {
-    scss: 'src/scss/**/*.scss',
-    js: 'src/js/**/*.js',
-    imagenes: 'src/img/**/*'
-};
-
-// Compilar CSS
+    scss: 'src/scss/**/*.scss',
+    js: 'src/js/**/*.js',
+    imagenes: 'src/img/**/*'
+}
 function css() {
-    return src(paths.scss)
-        .pipe(plumber()) // evita que se rompa el watch
-        .pipe(sourcemaps.init())
-        .pipe(sass({ outputStyle: 'expanded' }))
-        .pipe(postcss([autoprefixer(), cssnano()]))
-        .pipe(sourcemaps.write('.'))
-        .pipe(dest('public/build/css'));
+    return src(paths.scss)
+        .pipe( sourcemaps.init())
+        .pipe( sass({outputStyle: 'expanded'}))
+        // .pipe( postcss([autoprefixer(), cssnano()]))
+        .pipe( sourcemaps.write('.'))
+        .pipe(  dest('public/build/css') );
 }
-
-// Compilar JS con Webpack
 function javascript() {
-    return src(paths.js)
-        .pipe(webpack({
-            mode: 'production',
-            entry: './src/js/app.js',
-            output: {
-                filename: 'bundle.js'
-            },
-            module: {
-                rules: [
-                    {
-                        test: /\.css$/i,
-                        use: ['style-loader', 'css-loader']
-                    }
-                ]
-            }
-        }))
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(terser())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(dest('public/build/js'));
+    return src(paths.js)
+      .pipe( Webpack({
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: ['style-loader', 'css-loader']
+                }
+            ]
+        },
+        mode: 'production',
+        entry: './src/js/app.js'
+      }))
+      .pipe(sourcemaps.init())
+      //.pipe(concat('bundle.js')) 
+      .pipe(terser())
+      .pipe(sourcemaps.write('.'))
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(dest('./public/build/js'))
 }
 
-// Watcher
+/* --- TAREAS DE IMAGEN DESACTIVADAS ---
+function imagenes() {
+    return src(paths.imagenes)
+        .pipe( cache(imagemin({ optimizationLevel: 3})))
+        .pipe( dest('public/build/img'))
+}
+
+function versionWebp( done ) {
+    const opciones = {
+        quality: 50
+    };
+    src('src/img/**/*.{png,jpg}')
+        .pipe( webp(opciones) )
+        .pipe( dest('public/build/img') )
+    done();
+}
+
+function versionAvif( done ) {
+    const opciones = {
+        quality: 50
+    };
+    src('src/img/**/*.{png,jpg}')
+        .pipe( avif(opciones) )
+        .pipe( dest('public/build/img') )
+    done();
+}
+*/
+
 function dev(done) {
-    watch(paths.scss, css);
-    watch(paths.js, javascript);
-    done();
+    watch( paths.scss, css );
+    watch( paths.js, javascript );
+    // watch( paths.imagenes, imagenes) // Desactivado
+    // watch( paths.imagenes, versionWebp) // Desactivado
+    // watch( paths.imagenes, versionAvif) // Desactivado
+    done()
 }
 
 exports.css = css;
 exports.js = javascript;
+// exports.imagenes = imagenes; // Desactivado
+// exports.versionWebp = versionWebp; // Desactivado
+// exports.versionAvif = versionAvif; // Desactivado
 exports.dev = dev;
 exports.build = parallel(css, javascript);
