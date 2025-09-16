@@ -123,6 +123,7 @@ $router->post('/admin/tools/edit', [ToolsController::class, 'edit']);
 $router->post('/admin/tools/delete', [ToolsController::class, 'delete']);
 
 // area publica
+$router->get('/', [PagesController::class, 'index']); // <-- AÑADE ESTA LÍNEA
 $router->get('/home', [PagesController::class, 'index']);
 $router->get('/people-development', [PagesController::class, 'peopleDevelopment']); 
 $router->get('/marketing', [PagesController::class, 'marketing']);
