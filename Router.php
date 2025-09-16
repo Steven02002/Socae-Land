@@ -19,8 +19,9 @@ class Router
 
     public function comprobarRutas()
     {
-
-        $url_actual = $_SERVER['PATH_INFO'] ?? '/';
+        $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        // Elimina Query Strings (ej: ?id=1) de la URL para que no interfieran
+        $url_actual = strtok($currentUrl, '?');
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
@@ -30,8 +31,10 @@ class Router
         }
 
         if ( $fn ) {
+            // La URL existe y hay una función asociada
             call_user_func($fn, $this);
         } else {
+            // URL no encontrada
             header('Location: /404');
         }
     }
