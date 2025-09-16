@@ -57,33 +57,33 @@ function javascript() {
       .pipe(dest('./public/build/js'));
 }
 
-/* --- TAREAS DE IMAGEN DESACTIVADAS ---
-function imagenes() {
-    return src(paths.imagenes)
-        .pipe(cache(imagemin({ optimizationLevel: 3})))
-        .pipe(dest('public/build/img'));
-}
+// --- TAREAS DE IMAGEN DESACTIVADAS ---
+// function imagenes() {
+//     return src(paths.imagenes)
+//         .pipe(cache(imagemin({ optimizationLevel: 3})))
+//         .pipe(dest('public/build/img'));
+// }
 
-function versionWebp(done) {
-    const opciones = {
-        quality: 50
-    };
-    src('src/img/**/*.{png,jpg}')
-        .pipe(webp(opciones))
-        .pipe(dest('public/build/img'));
-    done();
-}
+// function versionWebp(done) {
+//     const opciones = {
+//         quality: 50
+//     };
+//     src('src/img/**/*.{png,jpg}')
+//         .pipe(webp(opciones))
+//         .pipe(dest('public/build/img'));
+//     done();
+// }
 
-function versionAvif(done) {
-    const opciones = {
-        quality: 50
-    };
-    src('src/img/**/*.{png,jpg}')
-        .pipe(avif(opciones))
-        .pipe(dest('public/build/img'));
-    done();
-}
-*/
+// function versionAvif(done) {
+//     const opciones = {
+//         quality: 50
+//     };
+//     src('src/img/**/*.{png,jpg}')
+//         .pipe(avif(opciones))
+//         .pipe(dest('public/build/img'));
+//     done();
+// }
+
 
 function dev(done) {
     watch(paths.scss, css);
