@@ -1,0 +1,8 @@
+{
+    order php_server before file_server
+}
+
+:8080 {
+    root * public
+    php_server
+}
