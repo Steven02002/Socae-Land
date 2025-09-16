@@ -1,5 +1,5 @@
 # nixpacks.toml
 
 [phases.setup]
-# Instala paquetes del sistema operativo necesarios para la compilación de imágenes
-aptPkgs = ["libjpeg-turbo-progs"]
+# Lista expandida de paquetes del sistema para asegurar la compatibilidad de las librerías de imágenes
+aptPkgs = ["build-essential", "libjpeg62-turbo", "libjpeg-turbo-progs"]
