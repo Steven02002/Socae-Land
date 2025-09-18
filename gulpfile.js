@@ -63,6 +63,12 @@ function imagenes() {
         .pipe(dest('public/build/img'));
 }
 
+function copiarImagenes(done) {
+    src('src/img/**/*')
+        .pipe(dest('public/build/img'));
+    done();
+}
+
 function versionWebp(done) {
     const opciones = { quality: 50 };
     src('src/img/**/*.{png,jpg}')
@@ -96,4 +102,4 @@ exports.versionAvif = versionAvif;
 exports.dev = dev;
 
 // Para producción en Railway usa solo esto:
-exports.build = parallel(css, javascript);
+exports.build = parallel(css, javascript, copiarImagenes);
